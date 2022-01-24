@@ -32,15 +32,15 @@ export const NavBar = () => {
               Explore
             </p>
           </li>
-          <li className="navbarListItem" onClick={() => navigate('/offer')}>
+          <li className="navbarListItem" onClick={() => navigate('/offers')}>
             <OfferIcon
-              fill={pathMatchRoute('/offer') ? '#2c2c2c' : '#8f8f8f'}
+              fill={pathMatchRoute('/offers') ? '#2c2c2c' : '#8f8f8f'}
               width="36px"
               height="36px"
             />
             <p
               className={
-                pathMatchRoute('/offer')
+                pathMatchRoute('/offers')
                   ? 'navbarListItemNameActive'
                   : 'navbarListItemName'
               }
