@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, updateProfile } from 'firebase/auth';
 import { updateDoc, doc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { db } from '../firebase.config';
+import rightIcon from '../assets/svg/keyboardArrowRightIcon.svg';
+import homeIcon from '../assets/svg/homeIcon.svg';
 
 export const Profile = () => {
   const auth = getAuth();
@@ -29,9 +31,11 @@ export const Profile = () => {
         });
         const userRef = doc(db, 'users', auth.currentUser.uid);
         await updateDoc(userRef, { name });
+        toast.success('Profile was successfully updated!');
       }
     } catch (error) {
       toast.error('Could not update profile details');
+      console.log(error);
     }
   };
 
@@ -50,39 +54,45 @@ export const Profile = () => {
           Logout
         </button>
       </header>
-      <div className="profileDetailsHeader">
-        <p className="profileDetailsText">Personal Details</p>
-        <p
-          className="changePersonalDetails"
-          onClick={() => {
-            changeDetails && onSubmit();
-            setChangeDetails((prevState) => !prevState);
-          }}
-        >
-          {changeDetails ? 'done' : 'change'}
-        </p>
-      </div>
-      <div className="profileCard">
-        <form>
-          <input
-            type="text"
-            id="name"
-            className={!changeDetails ? 'profileName' : 'profileNameActive'}
-            disabled={!changeDetails}
-            value={name}
-            onChange={onChange}
-          />
-          <input
-            type="text"
-            id="email"
-            className={!changeDetails ? 'profileEmail' : 'profileEmailActive'}
-            disabled={!changeDetails}
-            value={email}
-            onChange={onChange}
-          />
-        </form>
-        `
-      </div>
+      <main>
+        <div className="profileDetailsHeader">
+          <p className="profileDetailsText">Personal Details</p>
+          <p
+            className="changePersonalDetails"
+            onClick={() => {
+              changeDetails && onSubmit();
+              setChangeDetails((prevState) => !prevState);
+            }}
+          >
+            {changeDetails ? 'done' : 'change'}
+          </p>
+        </div>
+        <div className="profileCard">
+          <form>
+            <input
+              type="text"
+              id="name"
+              className={!changeDetails ? 'profileName' : 'profileNameActive'}
+              disabled={!changeDetails}
+              value={name}
+              onChange={onChange}
+            />
+            <input
+              type="text"
+              id="email"
+              className={!changeDetails ? 'profileEmail' : 'profileEmailActive'}
+              disabled={!changeDetails}
+              value={email}
+              onChange={onChange}
+            />
+          </form>
+        </div>
+        <Link to="/create-listing" className="createListing">
+          <img src={homeIcon} alt="home" />
+          <p>Sell or rent your home</p>
+          <img src={rightIcon} alt="arrow right" />
+        </Link>
+      </main>
     </div>
   );
 };

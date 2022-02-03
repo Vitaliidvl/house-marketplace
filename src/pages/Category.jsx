@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import { Spinner } from '../components/Spinner';
 import { ListingItem } from '../components/ListingItem';
 
-export const Offers = () => {
+export const Category = () => {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +28,7 @@ export const Offers = () => {
         //Create a query
         const queryListings = query(
           listingsRef,
-          where('offer', '==', true),
+          where('type', '==', params.categoryName),
           orderBy('timestamp', 'desc'),
           limit(10)
         );
@@ -47,15 +47,18 @@ export const Offers = () => {
         setLoading(false);
       } catch (error) {
         toast.error('Could not fetch listings');
-        console.log(error);
       }
     };
     fetchListings();
-  }, []);
+  }, [params.categoryName]);
   return (
     <div className="category">
       <header>
-        <p className="pageHeader">Offers</p>
+        <p className="pageHeader">
+          {params.categoryName === 'rent'
+            ? 'Places for rent'
+            : 'Places for sell'}
+        </p>
       </header>
       {loading ? (
         <Spinner />
@@ -68,13 +71,14 @@ export const Offers = () => {
                   listing={listing.data}
                   key={listing.id}
                   id={listing.id}
+                  onDelete={console.log('w')}
                 />
               ))}
             </ul>
           </main>
         </>
       ) : (
-        <p>There are no current offers</p>
+        <p>No listings for {params.categoryName}</p>
       )}
     </div>
   );

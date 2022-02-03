@@ -45,7 +45,7 @@ export const NavBar = () => {
                   : 'navbarListItemName'
               }
             >
-              Offer
+              Offers
             </p>
           </li>
           <li className="navbarListItem" onClick={() => navigate('/profile')}>
@@ -69,3 +69,4 @@ export const NavBar = () => {
     </footer>
   );
 };
+
