@@ -42,3 +42,38 @@ const object = {
   },
 };
 object.method(callback, 12);
+
+let pr1 = {
+  name: 'apple',
+  price: 10,
+};
+let pr2 = pr1;
+pr2.name = 'banana';
+pr2.price = 11;
+console.log(pr1.name);
+console.log(pr2.name);
+
+let pr3 = pr2;
+pr3.name = 'mango';
+console.log(pr1.name);
+let pr4 = pr3;
+pr4.name = 'mandarin';
+pr3.name = 'potato';
+console.log(pr1.name);
+
+var foo = 12345;
+var bar = function () {
+  baz();
+  var baz = function () {
+    console.log(foo);
+  };
+};
+bar();
+
+const array = [1, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5];
+
+const convertArrayToObject = (array) =>
+  array.reduce((acc, curr) => ((acc[curr] = ++acc[curr] || 1), acc), {});
+console.log(convertArrayToObject(array));     
+
+

@@ -89,13 +89,13 @@ export const CreateListing = () => {
     let geolocation = {};
     let location;
 
-    if (geolocationEnabled) {
+    // If we want to enable geolocation we need create a billing account
+    if (!geolocationEnabled) {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
       );
 
       const data = await response.json();
-      console.log(data);
 
       geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
       geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
@@ -113,7 +113,6 @@ export const CreateListing = () => {
     } else {
       geolocation.lat = latitude;
       geolocation.lng = longitude;
-      location = address;
     }
     //Store images and files
     const storeImage = async (image) => {
@@ -170,7 +169,11 @@ export const CreateListing = () => {
     delete formDataCopy.images;
     delete formDataCopy.address;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+    const docRef = await addDoc(collection(db, 'listings'), formDataCopy);
     setLoading(false);
+    toast.success('listing saved');
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   };
 
   const onMutate = (event) => {

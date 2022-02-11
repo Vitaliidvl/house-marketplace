@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { createComa } from '../services/services';
 import { ReactComponent as DeleteIcon } from '../assets/svg/deleteIcon.svg';
 import bedIcon from '../assets/svg/bedIcon.svg';
 import bathtubIcon from '../assets/svg/bathtubIcon.svg';
 
 export const ListingItem = ({ listing, id, onDelete }) => {
-  const createComa = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
   return (
     <li className="categoryListing">
       <Link className="categoryListingLink" to={`/category/${listing}/${id}`}>
