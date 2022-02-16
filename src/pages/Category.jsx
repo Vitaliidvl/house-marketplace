@@ -71,7 +71,6 @@ export const Category = () => {
                   listing={listing.data}
                   key={listing.id}
                   id={listing.id}
-                  onDelete={console.log('w')}
                 />
               ))}
             </ul>
