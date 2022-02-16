@@ -77,3 +77,51 @@ const convertArrayToObject = (array) =>
 console.log(convertArrayToObject(array));     
 
 
+let num = '777777777231142342342533333333333333333333333333334389573957';
+function luckyNumber(num) {
+  num = [...num];
+  let res = {};
+  for (let i = 0; i < num.length; i++) {
+    if (res[num[i]]) {
+      res[num[i]]++;
+    } else {
+      res[num[i]] = 1;
+    }
+  }
+  console.log(res);
+  let result = 0;
+  for (let key in res) {
+    if (res[key] == key) {
+      result = Math.max(result, key);
+    }
+  }
+  return result;
+}
+console.log(luckyNumber(num));
+
+const inData =
+  'user.name.firstName=Bob&user.name.lastName=Smith&user.favoriteColor=Light%20Blue&experiments.theme=dark';
+
+function queryObjectify(str) {
+  let res = {};
+  str = str.split('&').map((item) => item.split('.'));
+  for (let i = 0; i < str.length; i++) {
+    let cur = res;
+    for (let key = 0; key < str[i].length; key++) {
+      let name = str[i][key];
+      if (key === str[i].length - 1) {
+        name = name.split('=');
+        cur[name[0]] = name[1];
+        break;
+      }
+      if (cur[name]) {
+        cur = cur[name];
+      } else {
+        cur[name] = {};
+        cur = cur[name];
+      }
+    }
+  }
+  return res;
+}
+console.log(queryObjectify(inData));
