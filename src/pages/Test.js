@@ -6,6 +6,13 @@ const arr = [
   { id: 3, name: 'Brad' },
 ];
 
+for (let key in arr) {
+  console.log((key = arr[key].name));
+}
+for (let key of arr) {
+  console.log(key);
+}
+
 export const Test = () => {
   const [users, setUsers] = useState(arr);
   const inputRef = useRef(null);
@@ -74,8 +81,7 @@ const array = [1, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5];
 
 const convertArrayToObject = (array) =>
   array.reduce((acc, curr) => ((acc[curr] = ++acc[curr] || 1), acc), {});
-console.log(convertArrayToObject(array));     
-
+console.log(convertArrayToObject(array));
 
 let num = '777777777231142342342533333333333333333333333333334389573957';
 function luckyNumber(num) {
@@ -125,3 +131,16 @@ function queryObjectify(str) {
   return res;
 }
 console.log(queryObjectify(inData));
+
+function multiply() {
+  let res = 1;
+  for (let i = 0; i < arguments.length; i++) {
+    res *= arguments[i];
+  }
+  console.log(res);
+}
+console.log(multiply(2, 2));
+console.log(multiply(2, 3, 4, 5, 6, 7, 7));
+console.log(multiply(4, 5, 5, 6, 6, 7, 7, 8, 8, 8, 8));
+console.log(5 ** 2);
+
